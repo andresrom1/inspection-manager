@@ -2,17 +2,26 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
+
 
 class InspectionTest extends TestCase
 {
-    /**
-     * A basic unit test example.
-     *
-     * @return void
-     */
-    public function test_example()
+    use RefreshDatabase;
+
+    /** @test */
+    public function un_usuario_autenticado_recientemente_creado_es_type_100 ()
     {
-        $this->assertTrue(true);
+        User::factory()->create();
+        $user = User::first();        
+
+        $response = $this
+            ->actingAs($user);
+
+        $response->assertTrue($user->type == 10);
     }
+
+
 }
