@@ -16,7 +16,26 @@ class TakerTest extends TestCase
     {
         $this->withoutExceptionHandling();
         
-        $taker = Taker::create([
+        $taker = Taker::getTakerByData([
+            'name' => 'Juan Perez',
+            'email' => 'juan@gmail.com'
+        ]);
+
+        $this->assertCount(1, Taker::all());
+
+    }
+
+    /** @test */
+    public function un_tomador_existente_es_devuelto_y_no_es_creado ()
+    {
+        $this->withoutExceptionHandling();
+        
+        Taker::create([
+            'name' => 'Juan Perez',
+            'email' => 'juan@gmail.com'
+        ]);
+        
+        $taker = Taker::getTakerByData([
             'name' => 'Juan Perez',
             'email' => 'juan@gmail.com'
         ]);

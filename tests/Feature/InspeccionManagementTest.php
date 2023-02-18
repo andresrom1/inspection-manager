@@ -36,7 +36,7 @@ class InspeccionManagementTest extends TestCase
             'status' => 'pendiente'
         ];
 
-        $data = array_merge( ['user_id' => $user->id], ['taker_id' => $taker->id], $inspection );
+        $data = array_merge( ['user_id' => $user->id], ['taker_name' => $taker->name], ['taker_email' => $taker->email], $inspection );
 
         $response = $this
             ->actingAs($user)

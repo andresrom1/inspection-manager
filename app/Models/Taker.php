@@ -9,4 +9,14 @@ class Taker extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public static function getTakerByData($data) {
+
+        $taker = Taker::firstOrCreate(
+            ['email' => $data['email']],
+            ['name' => $data['name']]
+        );
+
+        return $taker;
+    }
 }
