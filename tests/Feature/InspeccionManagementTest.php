@@ -46,6 +46,37 @@ class InspeccionManagementTest extends TestCase
 
 
     }
+    /** @test */
+    public function un_usuario_sin_permisos_no_puede_crear_una_inspeccion ()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = User::factory()->create([
+            'type' => 90,
+        ]);
+
+        $taker = Taker::create([
+            'name' => 'Juan Perez',
+            'email' => 'juan@gmail.com'
+        ]);
+        
+        $inspection = [
+            'tipo' => 'auto',
+            'dominio' => 'AB413BS',
+            'compania' => 'LPS',
+            'status' => 'pendiente'
+        ];
+
+        $data = array_merge( ['user_id' => $user->id], ['taker_name' => $taker->name], ['taker_email' => $taker->email], $inspection );
+
+        $response = $this
+            ->actingAs($user)
+            ->post('/inspection', $data);
+
+        $this->assertCount(0, Inspection::all());
+
+
+    }
 
     // private function inspectionData()
     // {
