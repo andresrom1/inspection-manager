@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Taker>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Photo>
  */
-class TakerFactory extends Factory
+class PhotoFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,7 @@ class TakerFactory extends Factory
     public function definition()
     {
         return [
-            'name' => 'Juan Perez',
-            'email' => 'juan@gmail.com'
+            //
         ];
     }
 }

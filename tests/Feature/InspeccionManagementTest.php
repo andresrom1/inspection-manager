@@ -36,14 +36,19 @@ class InspeccionManagementTest extends TestCase
             'status' => 'pendiente'
         ];
 
-        $data = array_merge( ['user_id' => $user->id], ['taker_name' => $taker->name], ['taker_email' => $taker->email], $inspection );
+        $data = array_merge( ['takerName' => $taker->name], ['takerEmail' => $taker->email], $inspection );
 
         $response = $this
             ->actingAs($user)
             ->post('/inspection', $data);
-
+        
         $this->assertCount(1, Inspection::all());
-
+        
+        $inspection = Inspection::first();
+        
+        $storedTaker = Taker::find($inspection->taker_id);
+        $this->assertEquals($taker->id, $inspection->taker_id);
+        $this->assertEquals($taker->email, $storedTaker->email);
 
     }
     /** @test */

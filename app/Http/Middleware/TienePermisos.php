@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TienePermisos
 {
@@ -17,8 +18,8 @@ class TienePermisos
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = User::find($request->user_id);
-        
+        //$user = User::find($request->user_id);
+        $user = Auth::user();
         if($user->type >= 100) {
             return $next($request);
         } else {

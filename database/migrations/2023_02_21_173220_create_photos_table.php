@@ -13,15 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('inspections', function (Blueprint $table) {
+        Schema::create('photos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('taker_id');
-            $table->string('tipo');
-            $table->string('dominio');
-            $table->string('compania');
-            $table->string('status')->default('no procesada');
-            
             $table->timestamps();
         });
     }
@@ -33,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inspections');
+        Schema::dropIfExists('photos');
     }
 };

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\InspectionController;
+use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/flowbite-test', function () {
+    return view('flowbite.test');
+});
+
 Route::get('/no-tiene-permisos-suficientes', function () {
     return view('noTienePermisos');
 })->name('no.tiene.permisos');
@@ -34,5 +39,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('/inspection', [InspectionController::class, 'store'])->middleware('auth','tiene.permisos')->name('inspection.store');
+Route::get('/inspection', [InspectionController::class, 'create'])->middleware('auth','tiene.permisos')->name('inspection.create');
+
+Route::get('/inspection/{inspection}/photo', [PhotoController::class, 'create'])->name('photo.create');
 
 require __DIR__.'/auth.php';
