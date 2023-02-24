@@ -16,7 +16,7 @@
         </label>
     </div>
 
-    <div class="flex items-center justify-center w-60 h-60 mt-5">
+    <div class="flex items-center justify-center w-60 h-60 mt-10">
         <label for="camera-front" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
             <div class="flex flex-col items-center justify-center pt-5 pb-6">
                 <x-inspections.left></x-inspections.left>  
@@ -33,7 +33,7 @@
         </label>
     </div>
 
-    <div class="flex items-center justify-center w-60 h-60 mt-5">
+    <div class="flex items-center justify-center w-60 h-60 mt-10">
         <label for="camera-front" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
             <div class="flex flex-col items-center justify-center pt-5 pb-6">
                 <x-inspections.back></x-inspections.back>  
@@ -50,7 +50,7 @@
         </label>
     </div>
 
-    <div class="flex items-center justify-center w-60 h-60 mt-5">
+    <div class="flex items-center justify-center w-60 h-60 mt-10">
         <label for="camera-front" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
             <div class="flex flex-col items-center justify-center pt-5 pb-6">
                 <x-inspections.right></x-inspections.right>  

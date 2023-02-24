@@ -18,7 +18,6 @@ class TienePermisos
      */
     public function handle(Request $request, Closure $next)
     {
-        //$user = User::find($request->user_id);
         $user = Auth::user();
         if($user->type >= 100) {
             return $next($request);

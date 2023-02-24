@@ -41,6 +41,6 @@ Route::middleware('auth')->group(function () {
 Route::post('/inspection', [InspectionController::class, 'store'])->middleware('auth','tiene.permisos')->name('inspection.store');
 Route::get('/inspection', [InspectionController::class, 'create'])->middleware('auth','tiene.permisos')->name('inspection.create');
 
-Route::get('/inspection/{inspection}/photo', [PhotoController::class, 'create'])->name('photo.create');
+Route::get('/inspection/{inspection}/photo', [PhotoController::class, 'create'])->middleware('only.mobile')->name('photo.create');
 
 require __DIR__.'/auth.php';
