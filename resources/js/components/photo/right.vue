@@ -1,4 +1,5 @@
-<svg width="143px" height="71px" viewBox="0 0 143 71" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<template>
+    <svg width="143px" height="71px" viewBox="0 0 143 71" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Group 8</title>
     <defs>
         <polygon id="path-1" points="0.295363168 0.362380977 14.2560539 0.362380977 14.2560539 0.905896778 0.295363168 0.905896778"></polygon>
@@ -107,3 +108,4 @@
         </g>
     </g>
 </svg>
+</template>

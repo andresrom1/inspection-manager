@@ -17,6 +17,7 @@ class AllowOnlyMobileRequestMiddleware
     public function handle(Request $request, Closure $next)
     {
         //dd($request->header());
+        return $next($request);
 
         $userAgent = $request->header('user-agent');  
         //dd(preg_match('/(tablet|ipad|amazon|playbook)|(android(?!.*(mobi|opera mini)))/i', strtolower($userAgent)));      

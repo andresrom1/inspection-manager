@@ -1,3 +1,4 @@
+<template>
 <svg width="143px" height="71px" viewBox="0 0 143 71" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Group 3</title>
     <g id="4---Emi-/-Inspección" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -121,3 +122,4 @@
         </g>
     </g>
 </svg>
+</template>
