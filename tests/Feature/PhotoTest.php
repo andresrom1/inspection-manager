@@ -9,11 +9,19 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Testing\File;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class PhotoTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp (): void {
+        parent::setUp();
+
+        Storage::fake('public');
+    }
 
     /** @test */
     public function un_usuario_no_registrado_puede_cargar_una_foto () 
@@ -23,8 +31,8 @@ class PhotoTest extends TestCase
         $user = User::factory()->create([
             'type' => 100,
         ]);
-
         $data = $this->makeInspection($user);
+        // dd($data);
 
         $inspectionResponse = $this
             ->actingAs($user)
@@ -34,13 +42,24 @@ class PhotoTest extends TestCase
 
         $this->assertCount(1, Inspection::all());
 
-        $photo = File::image( 'foto.jpg', 1200,980);
+        $image = UploadedFile::fake()->image('user-image.jpg');
 
         $photoResponse = $this->post(route('photo.store' , ['inspection' => $inspection->id]), [
-            'file' => $photo
-        ]);
+            'image' => $image,
+            'width' => 850,
+            'height' => 300,
 
+        ])->assertStatus(201);
+
+        Storage::disk('public')->assertExists('inspection-photo/' . $image->hashName());
+        
+        $uploadedPhoto = Photo::first();
+
+        $this->assertEquals('inspection-photo/' . $image->hashName(), $uploadedPhoto->path);
+        $this->assertEquals('850', $uploadedPhoto->width);
+        $this->assertEquals('300', $uploadedPhoto->height);
         $this->assertCount(1, Photo::all());
+
     }
 
     private function makeInspection($user) {
@@ -57,7 +76,7 @@ class PhotoTest extends TestCase
             'status' => 'pendiente'
         ];
 
-        $data = array_merge( ['user_id' => $user->id], ['taker_name' => $taker->name], ['taker_email' => $taker->email], $inspection );
+        $data = array_merge( ['user_id' => $user->id], ['takerName' => $taker->name], ['takerEmail' => $taker->email], $inspection );
 
         return $data;
     }

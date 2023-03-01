@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('inspection_id');
+            $table->string('path');
+            $table->string('width');
+            $table->string('height');
             $table->timestamps();
         });
     }

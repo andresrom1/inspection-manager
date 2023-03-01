@@ -31,7 +31,7 @@ photoCard.mount("#photo-card");
 //         'front': Front,
 //     },
 // });
-//front.mount("#photo-card");
+// front.mount("#photo-card");
 
 // const left = createApp({
 //     components: {
