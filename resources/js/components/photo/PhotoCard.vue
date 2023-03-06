@@ -1,25 +1,46 @@
 <template>
-    <div ref="postImage" class="dz-clickable flex items-center justify-center w-60 h-60 mt-10">
+    <div ref="postImage" class="flex items-center justify-center w-60 h-60 mt-10">
         <!-- <form @submit.prevent="uploadFile" enctype="multipart/form-data" method="POST" action="{{ route('photo.store') }}"> -->
             <label for="camera-front" class="dz-clickable flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                <div class="dz-clickable flex flex-col items-center justify-center pt-5 pb-6">
-                    <front v-if="this.angulo == 'Frente' " />
-                    <!-- <left v-else-if="this.angulo == 'Izquierdo' " />
-                    <back v-else-if="this.angulo == 'Atrás' " />
-                    <right v-else-if="this.angulo == 'Derecho' " />
-                    <wheel v-else-if="this.angulo == 'Auxilio' " /> -->
-                    <div class="dz-clickable border-2 px-2 py-2 bg-gray-50 rounded-xl mt-5 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="dz-clickable h-5 w-5 stroke-gray-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
-                        </svg>
-                        <p class="dz-clickable ml-2 text-sm text-gray-500 dark:text-gray-400">Subir foto: <span class="font-bold">{{ this.angulo }}</span></p>
-                    </div>
-                    
-                </div>
-                <!-- <input id="camera-front" type="file" ref="file" name="file" class="hidden dz-clickable" @change="selectFile" capture/> -->
 
+                    <div v-show="this.fileAdded == false" class="flex flex-col items-center justify-center pt-5 pb-6">
+                        <front v-if="this.angulo == 'Frente' " />
+                        <!-- <left v-else-if="this.angulo == 'Izquierdo' " />
+                        <back v-else-if="this.angulo == 'Atrás' " />
+                        <right v-else-if="this.angulo == 'Derecho' " />
+                        <wheel v-else-if="this.angulo == 'Auxilio' " /> -->
+                        <div class="flex border-2 px-2 py-2 bg-gray-50 rounded-xl mt-5 items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="dz-clickable h-5 w-5 stroke-gray-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
+                                </svg>
+                                <p class="ml-2 text-sm text-gray-500 dark:text-gray-400">Subir foto: <span class="font-bold">{{ this.angulo }}</span></p>   
+                        </div>
+                    </div>
+                    <div class="dropzone-previews">
+                        <div id="dz-template" class="hidden">
+                            <div class="dz-preview dz-file-preview mt-4">
+                                <div class="dz-details flex flex-col">
+                                    <img data-dz-thumbnail class="w-48 h-48 rounded-xl">
+                                    <button data-dz-remove class="text-xs mt-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-6 h-6" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                
+                            </div>
+                        </div>   
+                    </div>
+
+                
+                
+                <!-- <input id="camera-front" type="file" ref="file" name="file" class="hidden dz-clickable" @change="selectFile" capture/> -->
+                <input id="inspection" name="inspection" type="text" value="{{ this.inspection['id'] }}" hidden/>
+                
+                
             </label>
+            
         <!-- </form> -->
     </div>
         <div class="mt-10 flex justify-center">
@@ -39,6 +60,7 @@ export default {
     data: () => ({
         dropzone: null,
         image: null,
+        fileAdded: false,
     }),
     components: 
     {
@@ -51,13 +73,15 @@ export default {
     props: {
         angulo: {
             type: String
-        }
+        },
+        inspection: {}
     },
+
 
     methods: {
         postHandler () {
             if (this.dropzone.getAcceptedFiles().length) {
-                // this.dropzone.processQueue();
+                this.dropzone.processQueue();
             } else {
                 console.log(this.dropzone.getAcceptedFiles());
                 alert ('No hay archivo');
@@ -66,8 +90,15 @@ export default {
     },
 
     mounted () {
-        console.log(this.angulo);
         this.dropzone = new Dropzone(this.$refs.postImage, this.settings);
+        this.dropzone.on("addedfile", file => {
+            console.log("A file has been added");
+            this.fileAdded = true;
+        });
+        this.dropzone.on("removedfile", file => {
+            console.log("A file has been removed");
+            this.fileAdded = false;
+        });
     },
 
     computed: {
@@ -77,22 +108,30 @@ export default {
                 url: '/photo',
                 acceptedFiles: 'image/*',
                 clickable: '.dz-clickable',
-                autoProcessQueue: true,
+                autoProcessQueue: false,
+                maxFiles: 1,
+                capture: 'file',
+                previewsContainer: '.dropzone-previews',
+                previewTemplate: document.querySelector('#dz-template').innerHTML,
                 params: {
-                    'width': 1000,
-                    'height': 1000,
+                    'inspection': this.inspection['id'],
                 },
                 headers: {
                     'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
                 },
                 sending: (file, xhr, formData) => {
-                    formData.append('body', 1);
+                    formData.append('inspection',this.inspection['id']);
                 },
                 success: (event, res) => {
+                    this.dropzone.removeAllFiles();
                     alert('succes');
-                }
+                },
+                maxfilesexceeded: file => {
+                    this.dropzone.removeAllFiles();
+                    this.dropzone.addFile(file);
+                },
             }
-        }
+        },
     },
 }
 

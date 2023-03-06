@@ -1,7 +1,7 @@
 <div class="flex items-center justify-center w-60 h-60 mt-10">
-    <form enctype="multipart/form-data" method="POST" action="{{ route('photo.store') }}">
+    <form action="{{ route('photo.store') }}" enctype="multipart/form-data" method="post">
         @csrf
-        <label for="camera-front" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+        <label for="image" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
             <div class="flex flex-col items-center justify-center pt-5 pb-6">
                 @if ($angulo == 'Frente')
                     <x-inspections.front />
@@ -23,10 +23,12 @@
                 </div>
                 
             </div>
-            <input id="camera-front" type="file"  capture/>
+            <input id="image" name="image" type="file"  capture/>
+            <input id="inspection" name="inspection" type="text" value="{{ $inspection->id }}" hidden/>
         </label>
         <div class="mt-10 flex justify-center">
             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Siguiente</button>
         </div>
     </form>
+    {{ $inspection->id }}
 </div>

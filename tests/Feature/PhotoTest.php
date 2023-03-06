@@ -46,18 +46,13 @@ class PhotoTest extends TestCase
 
         $photoResponse = $this->post(route('photo.store' , ['inspection' => $inspection->id]), [
             'image' => $image,
-            'width' => 850,
-            'height' => 300,
-
-        ])->assertStatus(201);
-
-        Storage::disk('public')->assertExists('inspection-photo/' . $image->hashName());
+        ])->assertstatus(201);
         
         $uploadedPhoto = Photo::first();
 
-        $this->assertEquals('inspection-photo/' . $image->hashName(), $uploadedPhoto->path);
-        $this->assertEquals('850', $uploadedPhoto->width);
-        $this->assertEquals('300', $uploadedPhoto->height);
+        $this->assertNotNull($uploadedPhoto->url);
+        $this->assertNotNull($uploadedPhoto->url_thumb);
+        $this->assertEquals(1,$uploadedPhoto->inspection_id);
         $this->assertCount(1, Photo::all());
 
     }
