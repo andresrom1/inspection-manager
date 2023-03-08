@@ -57,6 +57,54 @@ class PhotoTest extends TestCase
 
     }
 
+    /** @test */
+    public function para_acceder_a_cargar_fotos_debe_coincidir_el_token_de_seguridad () {
+        $this->withoutExceptionHandling();
+        
+        $user = User::factory()->create([
+            'type' => 100,
+        ]);
+        $data = $this->makeInspection($user);
+
+        $inspectionResponse = $this
+            ->actingAs($user)
+            ->post('/inspection', $data);
+        
+        $inspection = Inspection::find(1);
+
+        $this->assertCount(1, Inspection::all());
+        $this->assertNotNull($inspection->token, 'No existe $inspection->tokern');
+
+        $response = $this->get(route('photo.create', [
+            'inspection' => $inspection->id,
+            'token' => $inspection->token]))
+            ->assertStatus(200);
+    }
+
+    /** @test */
+    public function no_autorizado_si_token_no_coincide () {
+        $this->withoutExceptionHandling();
+        
+        $user = User::factory()->create([
+            'type' => 100,
+        ]);
+        $data = $this->makeInspection($user);
+
+        $inspectionResponse = $this
+            ->actingAs($user)
+            ->post('/inspection', $data);
+        
+        $inspection = Inspection::find(1);
+
+        $this->assertCount(1, Inspection::all());
+        $this->assertNotNull($inspection->token, 'No existe $inspection->tokern');
+
+        $response = $this->get(route('photo.create', [
+        'inspection' => $inspection->id,
+        'token' => 'kjadskjahsd']))
+        ->assertStatus(404);
+    }
+
     private function makeInspection($user) {
 
         $taker = Taker::create([

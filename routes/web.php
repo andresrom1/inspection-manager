@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
 Route::post('/inspection', [InspectionController::class, 'store'])->middleware('auth','tiene.permisos')->name('inspection.store');
 Route::get('/inspection', [InspectionController::class, 'create'])->middleware('auth','tiene.permisos')->name('inspection.create');
 
-Route::get('inspection/{inspection}/photo', [PhotoController::class, 'create'])->middleware('only.mobile')->name('photo.create');
+Route::get('inspection/{inspection}/{token}/photo', [PhotoController::class, 'create'])->middleware('check.token','only.mobile')->name('photo.create');
 Route::post('photo', [PhotoController::class, 'store'])->name('photo.store');
 
 require __DIR__.'/auth.php';

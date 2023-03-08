@@ -51,6 +51,7 @@ class InspeccionManagementTest extends TestCase
         $this->assertEquals($taker->email, $storedTaker->email);
 
     }
+
     /** @test */
     public function un_usuario_sin_permisos_no_puede_crear_una_inspeccion ()
     {
@@ -83,6 +84,39 @@ class InspeccionManagementTest extends TestCase
 
     }
 
+    /** @test */
+    public function al_crear_una_inspeccion_se_genera_un_token () 
+    {
+        $this->withoutExceptionHandling();
+
+        $user = User::factory()->create([
+            'type' => 100,
+        ]);
+
+        $taker = Taker::create([
+            'name' => 'Juan Perez',
+            'email' => 'juan@gmail.com'
+        ]);
+        
+        $inspection = [
+            'tipo' => 'auto',
+            'dominio' => 'AB413BS',
+            'compania' => 'LPS',
+            'status' => 'pendiente'
+        ];
+
+        $data = array_merge( ['takerName' => $taker->name], ['takerEmail' => $taker->email], $inspection );
+
+        $response = $this
+            ->actingAs($user)
+            ->post('/inspection', $data);
+        
+        $inspection = Inspection::first();
+        
+        $this->assertCount(1, Inspection::all());        
+        $this->assertNotNull($inspection->token, 'No hay Token');
+
+    }
     // private function inspectionData()
     // {
     //     return [
