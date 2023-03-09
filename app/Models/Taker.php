@@ -19,4 +19,8 @@ class Taker extends Model
 
         return $taker;
     }
+
+    public function Inspections () {
+        return $this->hasMany(Inspection::class);
+    }
 }

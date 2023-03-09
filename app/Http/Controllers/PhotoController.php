@@ -10,10 +10,19 @@ use Intervention\Image\Facades\Image;
 
 class PhotoController extends Controller
 {
-    public function create (Inspection $inspection, String $token) {
+    public function checkmail (Request $request)
+    {
+        //dd($request);
+        //$data= json_decode($request->inspection);
+        $inspection = Inspection::find($request->taker_id);
+        //dd($inspection);
+
         return view('photo.create', compact('inspection'));
     }
-    
+    public function create (Inspection $inspection, String $token) {
+        // return view('photo.create', compact('inspection'));
+        return view('photo.check', compact('inspection','token'));
+    }
     public function store (Request $request) {
         $data = request()->validate([
             'image' => 'required',

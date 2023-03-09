@@ -15,4 +15,8 @@ class Inspection extends Model
     public function photo () {
         return $this->hasMany(Photo::class);
     }
+
+    public function taker () {
+        return $this->belongsTo(Taker::class);
+    }
 }
