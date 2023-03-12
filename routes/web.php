@@ -21,6 +21,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/thankyou', function() {
+    return view('photo.thankyou');
+})->name('photo.thankyou');
+
 Route::get('/flowbite-test', function () {
     return view('flowbite.test');
 });

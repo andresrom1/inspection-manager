@@ -18,16 +18,8 @@ class CheckMailOnTakerPhotoUploadMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        // return $next($request);
-        // dump($request());
-        
-        //$inspectionData = json_decode($request->inspection);
-        
-        //$taker = Taker::find($inspectionData->taker_id);
-        
         $taker = Taker::find($request->taker_id);
-        //dd($taker);
-        
+
         if ($taker->email == $request->email) {
             return $next($request);
         } else {
