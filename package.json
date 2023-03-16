@@ -18,6 +18,8 @@
     },
     "dependencies": {
         "@vitejs/plugin-vue": "^4.0.0",
+        "datatables.net-dt": "^1.13.4",
+        "datatables.net-responsive-dt": "^2.4.1",
         "flowbite": "^1.6.3"
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AllowOnlyMobileRequestMiddleware
 {
@@ -16,9 +17,15 @@ class AllowOnlyMobileRequestMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        
         //dd($request->header());
         //return $next($request);
-
+        
+        $user = Auth::user();
+        if($user->type >= 100) {
+            return $next($request);
+        } 
+        
         $userAgent = $request->header('user-agent');  
         //dd(preg_match('/(tablet|ipad|amazon|playbook)|(android(?!.*(mobi|opera mini)))/i', strtolower($userAgent)));      
         // if(preg_match('/(tablet|ipad|amazon|playbook)|(android(?!.*(mobi|opera mini)))/i', strtolower($userAgent))) {

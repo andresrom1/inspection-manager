@@ -4,11 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Inspection;
 use App\Models\Taker;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Auth;
 
 class InspectionController extends Controller
 {
+    public function index () {
+        $inspections = Inspection::with('taker')->get();
+        return view ('inspection.index', compact('inspections'));
+    }
+    
+    public function indexTable () {
+        
+        $data = $this->prepData();
+
+        return $data;
+    }
+
     public function create() {
         return view ('inspection.create');
     }
@@ -39,5 +52,54 @@ class InspectionController extends Controller
 
         return view('dashboard');
 
+    }
+
+    public function prepData () {
+        $inspections = Inspection::with('taker')->get();
+        
+        $array['data'] = [];
+
+        foreach ($inspections as $ins) {
+            array_push($array['data'], [
+                'id' => $ins->id,
+                'user_id' => $ins->user_id,
+                'taker_id' => $ins->taker_id,
+                'tipo' => $ins->tipo,
+                'dominio' => $ins->dominio,
+                'compania' => $ins->compania,
+                'status' => $ins->status,
+                'token' => $ins->token,
+                'created_at' => $ins->created_at,
+                'updated_at' => $ins->updated_at,
+                'taker_name' => $ins->taker->name,
+                'taker_email' => $ins->taker->email
+
+            ] );
+        }
+
+        return collect($array)->toJson();
+
+        return [
+            'data' => [
+                [
+                "id" => "1",
+                "name" => "Tiger Nixon",
+                "position" => "System Architect",
+                "salary" => "$320,800",
+                "start_date" => "2011/04/25",
+                "office" => "Edinburgh",
+                "extn" => "5421"
+                ],
+                [
+                "id" => "2",
+                "name" => "Garrett Winters",
+                "position" => "Accountant",
+                "salary" => "$170,750",
+                "start_date" => "2011/07/25",
+                "office" => "Tokyo",
+                "extn" => "8422"
+                ]
+            ]
+        ];
     }
 }

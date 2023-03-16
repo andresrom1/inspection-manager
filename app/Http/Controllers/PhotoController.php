@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inspection;
+use App\Models\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -45,5 +46,11 @@ class PhotoController extends Controller
         ]);
 
         return response('',201);
+    }
+
+    public function index (Inspection $inspection) {
+        $photos = Photo::where('inspection_id', $inspection->id )->get();
+        dd($photos);
+
     }
 }
