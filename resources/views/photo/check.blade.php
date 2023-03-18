@@ -5,7 +5,6 @@
     <form method="POST" action="{{ route('photo.performCheck') }}">
         @csrf
 
-
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
@@ -16,8 +15,8 @@
         <div>
             <input type="text" value="{{ $inspection->taker_id }} " id="taker_id" name="taker_id" hidden>
             <input type="text" value="{{ $token }} " id="token" name="token" hidden>
+            <input type="text" value="{{ $inspection->id }} " id="inspection_id" name="inspection_id" hidden>
         </div>
-
 
         <div class="flex items-center justify-center mt-4">
             <x-primary-button class="ml-3">

@@ -19,4 +19,10 @@ class Inspection extends Model
     public function taker () {
         return $this->belongsTo(Taker::class);
     }
+
+    public function photoDelete() {
+        foreach ($this->photo as $photo) {
+            $photo->manageDeletions();
+        }
+    }
 }

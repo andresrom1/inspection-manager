@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
+            // $table->unsignedBigInteger('inspection_id')->onDelete('cascade');
             $table->unsignedBigInteger('inspection_id');
             $table->string('url');
             $table->string('url_thumb');

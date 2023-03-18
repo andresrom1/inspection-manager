@@ -3,7 +3,6 @@
         <div id="photo-card">
             <photo-card angulo="Frente" :inspection= "{{ $inspection }}"> </photo-card>
         </div>
-        <!-- <x-inspections.card angulo="Frente" :inspection=$inspection/> -->
     </div>
     {{ $inspection->id }}
 </x-photo-layout>

@@ -13,10 +13,12 @@ class PhotoController extends Controller
 {
     public function checkmail (Request $request)
     {
-        $inspection = Inspection::find($request->taker_id);
+        //  dump(request());
+        $inspection = Inspection::find($request->inspection_id);
         return view('photo.create', compact('inspection'));
     }
     public function create (Inspection $inspection, String $token) {
+        //dd(request());
         return view('photo.check', compact('inspection','token'));
     }
     public function store (Request $request) {
@@ -50,7 +52,7 @@ class PhotoController extends Controller
 
     public function index (Inspection $inspection) {
         $photos = Photo::where('inspection_id', $inspection->id )->get();
-        dd($photos);
+        return view('photo.index', compact('photos'));
 
     }
 }

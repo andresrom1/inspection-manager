@@ -35,7 +35,7 @@ Route::get('/no-tiene-permisos-suficientes', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified','tiene.permisos'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -43,9 +43,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/inspections', [InspectionController::class, 'index'])->middleware('auth','tiene.permisos')->name('inspections.index');
 Route::post('/inspection', [InspectionController::class, 'store'])->middleware('auth','tiene.permisos')->name('inspection.store');
 Route::get('/inspection/create', [InspectionController::class, 'create'])->middleware('auth','tiene.permisos')->name('inspection.create');
-Route::get('inspections', [InspectionController::class, 'index'])->middleware('auth','tiene.permisos')->name('inspections.index');
+Route::get('/inspection/{inspection}/ConfirmDelete', [InspectionController::class, 'destroyConfirm'])->middleware('auth','tiene.permisos')->name('inspection.destroyConfirm');
+Route::get('/inspection/{inspection}', [InspectionController::class, 'show'])->middleware('auth','tiene.permisos')->name('inspection.show');
+Route::delete('/inspection/{inspection}', [InspectionController::class, 'destroy'])->middleware('auth','tiene.permisos')->name('inspection.destroy');
 Route::get('inspections.json', [InspectionController::class, 'indexTable'])->middleware('auth','tiene.permisos')->name('inspections.indexTable');
 
 //Route::get('inspection/{inspection}/{token}/photo', [PhotoController::class, 'create'])->middleware('check.token','only.mobile')->name('photo.create');

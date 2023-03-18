@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inspection;
+use App\Models\Photo;
 use App\Models\Taker;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Request;
@@ -10,15 +11,26 @@ use Illuminate\Support\Facades\Auth;
 
 class InspectionController extends Controller
 {
+    public function show (Inspection $inspection) {
+
+        return view('inspection.show', compact('inspection'));
+    }
+    public function destroyConfirm (Inspection $inspection) {
+
+        return view('inspection.destroy', compact('inspection'));
+    }
+    public function destroy (Inspection $inspection) {
+        $inspection->photoDelete();
+        $inspection->delete();
+        return redirect(route('inspections.index'));
+    }
     public function index () {
         $inspections = Inspection::with('taker')->get();
         return view ('inspection.index', compact('inspections'));
     }
-    
-    public function indexTable () {
-        
-        $data = $this->prepData();
 
+    public function indexTable () {     
+        $data = $this->prepData();
         return $data;
     }
 
@@ -50,7 +62,7 @@ class InspectionController extends Controller
             'compania' => request('compania'),
         ]);
 
-        return view('dashboard');
+        return redirect( route('inspections.index') );
 
     }
 
