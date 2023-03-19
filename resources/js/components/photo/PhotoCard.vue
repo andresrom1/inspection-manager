@@ -80,6 +80,7 @@ export default {
             spinner: false,
         },
         urlToRedirect: '',
+        statusChanged: false,
     }),
     components: 
     {
@@ -102,11 +103,22 @@ export default {
         postHandler () {
             if (this.dropzone.getAcceptedFiles().length) {
                 this.dropzone.processQueue();
-                //this.dropzone.removeAllFiles();
                 this.next();
+                this.changeStatus();
             } else {
                 console.log(this.dropzone.getAcceptedFiles());
                 alert ('No hay archivo');
+            }
+        },
+        changeStatus() {
+            if ( this.statusChanged == false ) {
+                axios
+                    .post('/inspection/' + this.inspection['id'] + '/changeStatus', {
+                        status: 'Foto agregada'
+                    })
+                    .then(response => (
+                        this.statusChanged = true
+                ));
             }
         },
         thankYouMessage() {
@@ -195,7 +207,7 @@ export default {
                 this.step.derecho = false,      //3
                 this.step.auxilio = false,      //4
                 console.log(this.step)
-                this.thankYouMessage()
+                this.thankYouMessage()        
             }
         },
     },

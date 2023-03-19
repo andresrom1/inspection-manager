@@ -11,6 +11,38 @@ use Illuminate\Support\Facades\Auth;
 
 class InspectionController extends Controller
 {
+    public function changeStatus(Inspection $inspection) {
+
+        $inspection->update([
+            'status' => request()->status
+        ]);
+        return request()->status;
+    }
+    public function edit (Inspection $inspection) {
+        return view ( 'inspection.edit', compact('inspection'));
+    }
+    public function update (Inspection $inspection) {
+        $data = request()->validate([
+            'dominio' => 'required',
+            'takerEmail'=> 'required|email',
+            'takerName' => 'required',
+            'tipo' => 'required',
+            'compania' => 'required',
+        ]);
+        
+        $taker = Taker::updateTaker([
+            'name' => request('takerName'),
+            'email' => request('takerEmail'),
+        ]);
+
+        $inspection->update([
+            'tipo' => request('tipo'),
+            'dominio' => request('dominio'),
+            'compania' => request('compania'),
+        ]);
+
+        return redirect ( route('inspections.index'));
+    }
     public function show (Inspection $inspection) {
 
         return view('inspection.show', compact('inspection'));

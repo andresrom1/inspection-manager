@@ -19,6 +19,13 @@ class Taker extends Model
 
         return $taker;
     }
+    public static function updateTaker($data) {
+
+        $taker = Taker::findOrFail(1);
+
+        $taker->update($data);
+        return $taker;
+    }
 
     public function Inspections () {
         return $this->hasMany(Inspection::class);
