@@ -11,13 +11,22 @@ use Illuminate\Support\Facades\Auth;
 
 class InspectionController extends Controller
 {
+    public function editStatus (Inspection $inspection) {
+        return view ('inspection.editStatus', compact('inspection'));
+    }
     public function changeStatus(Inspection $inspection) {
 
         $inspection->update([
             'status' => request()->status
         ]);
-        return request()->status;
+
+        if (request()->origen == 'form') {
+            return redirect (route('inspections.index'));
+        } else {
+            return;
+        }
     }
+    
     public function edit (Inspection $inspection) {
         return view ( 'inspection.edit', compact('inspection'));
     }

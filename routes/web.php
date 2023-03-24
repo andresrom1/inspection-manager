@@ -45,7 +45,8 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/inspections', [InspectionController::class, 'index'])->middleware('auth','tiene.permisos')->name('inspections.index');
 Route::post('/inspection', [InspectionController::class, 'store'])->middleware('auth','tiene.permisos')->name('inspection.store');
-Route::post('/inspection/{inspection}/changeStatus', [InspectionController::class, 'changeStatus'])->middleware('auth','tiene.permisos')->name('inspection.changeStatus');
+Route::post('/inspection/{inspection}/updateStatus', [InspectionController::class, 'changeStatus'])->middleware('auth','tiene.permisos')->name('inspection.updateStatus');
+Route::get('/inspection/{inspection}/editStatus', [InspectionController::class, 'editStatus'])->middleware('auth','tiene.permisos')->name('inspection.editStatus');
 Route::get('/inspection/create', [InspectionController::class, 'create'])->middleware('auth','tiene.permisos')->name('inspection.create');
 Route::get('/inspection/{inspection}/ConfirmDelete', [InspectionController::class, 'destroyConfirm'])->middleware('auth','tiene.permisos')->name('inspection.destroyConfirm');
 Route::get('/inspection/{inspection}', [InspectionController::class, 'show'])->middleware('auth','tiene.permisos')->name('inspection.show');
