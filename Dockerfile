@@ -13,7 +13,7 @@ RUN docker-php-ext-install pdo_mysql mbstring
 
 WORKDIR /app
 COPY composer.json .
-RUN composer install 
+RUN composer install --no-scripts
 COPY . .
 
 CMD php artisan serve --host=0.0.0.0 --port 80
