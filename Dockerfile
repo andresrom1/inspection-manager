@@ -8,12 +8,15 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     unzip
+RUN npm install -g http-server
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN docker-php-ext-install pdo_mysql mbstring
 
 WORKDIR /app
 COPY composer.json .
 RUN composer install --no-scripts
+RUN npm install
 COPY . .
 
-CMD php artisan serve --host=0.0.0.0 --port 80 && npm run prod
+RUN npm run build
+CMD php artisan serve --host=0.0.0.0 --port 80
