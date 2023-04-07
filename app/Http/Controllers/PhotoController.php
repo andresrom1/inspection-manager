@@ -22,6 +22,7 @@ class PhotoController extends Controller
         return view('photo.check', compact('inspection','token'));
     }
     public function store (Request $request) {
+        //d(storage_path());
         $data = request()->validate([
             'image' => 'required',
         ]);
@@ -29,7 +30,8 @@ class PhotoController extends Controller
         $random = Str::random(15);
         $filename = $random . "." . $request->file('image')->getClientOriginalExtension();
         $filename_thumb = $random . "_thumb." . $request->file('image')->getClientOriginalExtension();
-        $path = storage_path() . '\app\public\inspection-photo/';
+        //$path = storage_path() . '\app\public\inspection-photo/';
+        $path = storage_path() . '/app/public/inspection-photo/';
         $url = Storage::url('inspection-photo/');
 
         Image::make($request->file('image'))
