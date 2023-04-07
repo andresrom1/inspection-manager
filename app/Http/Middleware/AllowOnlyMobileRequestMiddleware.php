@@ -21,9 +21,11 @@ class AllowOnlyMobileRequestMiddleware
         //dd($request->header());
         //return $next($request);
         
-        $user = Auth::user();
-        if($user->type >= 100) {
-            return $next($request);
+        if(Auth::user()) {
+            $user = Auth::user();
+            if ($user->type >= 100) {
+                return $next($request);
+            }
         } 
         
         $userAgent = $request->header('user-agent');  
