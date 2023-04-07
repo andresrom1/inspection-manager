@@ -22,7 +22,7 @@ class PhotoController extends Controller
         return view('photo.check', compact('inspection','token'));
     }
     public function store (Request $request) {
-        //d(storage_path());
+        dd(storage_path());
         $data = request()->validate([
             'image' => 'required',
         ]);
