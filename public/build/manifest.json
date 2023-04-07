@@ -1,11 +1,28 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-0687487d.css",
+    "file": "assets/app-8241799c.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
+  "resources/css/basic.css": {
+    "file": "assets/basic-6ec13717.css",
+    "isEntry": true,
+    "src": "resources/css/basic.css"
+  },
+  "resources/css/dropzone.css": {
+    "file": "assets/dropzone-1f8a37e8.css",
+    "isEntry": true,
+    "src": "resources/css/dropzone.css"
+  },
+  "resources/js/app.css": {
+    "file": "assets/app-1d6cc8ab.css",
+    "src": "resources/js/app.css"
+  },
   "resources/js/app.js": {
-    "file": "assets/app-73eee938.js",
+    "css": [
+      "assets/app-1d6cc8ab.css"
+    ],
+    "file": "assets/app-f18a482d.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }
