@@ -262,23 +262,15 @@ export default {
                 },
                 sending: (file, xhr, formData) => {
                     formData.append('inspection',this.inspection['id']);
-                    // Cludinary
                     formData.append('upload_preset', 'tg0jdhgj');
                     formData.append('api_key', '552537444376275');
                     formData.append('file', file);
-                    // end Cloudinary
                     
                 },
                 success: (event, res) => {
-                    console.log(res);
-                    axios
-                        .post('/photo/cloudinaryUpload/' + this.inspection['id'], {
-                                response: res
-                            })
-                            .then(response => (
-                                this.dropzone.removeAllFiles()
-                        ));
-                  
+                    this.dropzone.removeAllFiles();
+                    alert('succes');
+                    console.log(res.public_id);
                 },
                 maxfilesexceeded: file => {
                     this.dropzone.removeAllFiles();

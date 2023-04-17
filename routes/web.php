@@ -59,6 +59,7 @@ Route::get('inspections.json', [InspectionController::class, 'indexTable'])->mid
 Route::get('inspection/{inspection}/{token}/photo', [PhotoController::class, 'create'])->middleware('check.token','only.mobile')->name('photo.checkMail');
 Route::post('inspection/validated', [PhotoController::class, 'checkmail'])->middleware('check.mail')->name('photo.performCheck');
 Route::post('photo', [PhotoController::class, 'store'])->name('photo.store');
+Route::post('photo/cloudinaryUpload/{inspection}', [PhotoController::class, 'storeCloudinary'])->name('photo.storeCloudinary');
 Route::get('inspection/{inspection}/photo', [PhotoController::class, 'index'])->name('photo.index');
 
 require __DIR__.'/auth.php';

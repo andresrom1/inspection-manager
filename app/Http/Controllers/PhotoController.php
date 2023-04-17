@@ -52,6 +52,14 @@ class PhotoController extends Controller
         return response('',201);
     }
 
+    public function storeCloudinary (Inspection $inspection) {
+        $uploadedPhoto = $inspection->photo()->create([
+            'url'=>request()->response['url'],
+            'url_thumb'=>request()->response['url'],
+        ]);
+        return response('',201);
+    }
+
     public function index (Inspection $inspection) {
         $photos = Photo::where('inspection_id', $inspection->id )->get();
         return view('photo.index', compact('photos'));
