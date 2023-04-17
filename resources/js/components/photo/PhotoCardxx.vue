@@ -262,7 +262,7 @@ export default {
                 },
                 sending: (file, xhr, formData) => {
                     formData.append('inspection',this.inspection['id']);
-                    // Cludinary
+                    // Cloudinary
                     formData.append('upload_preset', 'tg0jdhgj');
                     formData.append('api_key', '552537444376275');
                     formData.append('file', file);
