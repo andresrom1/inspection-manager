@@ -17,5 +17,4 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-/resources/js/components/photo/PhotoCard copy.env
-/resources/js/components/photo/PhotoCard.env
+/resources/js/components/photo/PhotoCardCopy.env

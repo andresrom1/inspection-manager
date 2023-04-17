@@ -235,7 +235,6 @@ export default {
         settings () {
             return {
                 paramName: 'image',
-                //url: '/photo',
                 url: 'https://api.cloudinary.com/v1_1/dnxwqfevm/image/upload',
                 acceptedFiles: 'image/*',
                 clickable: '.dz-clickable',
@@ -246,14 +245,6 @@ export default {
                 previewTemplate: document.querySelector('#dz-template').innerHTML,
                 maxFileSize: 20,
                 parallelUploads: 1,
-                // For chunking
-                // chunking: true,
-                // forceChunking: true,
-                // chunkSize: 800000,
-                // parallelChunkUploads: false,
-                // retryChunks: true,
-                // retryChunksLimit: 3,
-                // 
                 params: {
                     'inspection': this.inspection['id'],
                 },
