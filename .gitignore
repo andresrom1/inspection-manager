@@ -18,3 +18,4 @@ yarn-error.log
 /.idea
 /.vscode
 /resources/js/components/photo/PhotoCard copy.env
+/resources/js/components/photo/PhotoCard.env
