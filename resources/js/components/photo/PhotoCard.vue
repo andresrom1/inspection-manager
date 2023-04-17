@@ -129,15 +129,17 @@ export default {
             }
         },
         thankYouMessage() {
-            axios
-                .get('/thankyou')
-                .then(response => (
-                    console.log(response.request.responseURL),
-                    this.urlToRedirect = response.request.responseURL,
-
-                    window.location.href = this.urlToRedirect
-                    
-                ));            
+            if (this.step.status == 5) {
+                axios
+                    .get('/thankyou')
+                    .then(response => (
+                        console.log(response.request.responseURL),
+                        this.urlToRedirect = response.request.responseURL,
+    
+                        window.location.href = this.urlToRedirect
+                        
+                    ));            
+            }
         },
 
         next() {
@@ -214,7 +216,7 @@ export default {
                 this.step.derecho = false,      //3
                 this.step.auxilio = false,      //4
                 console.log(this.step)
-                this.thankYouMessage()        
+                //this.thankYouMessage()        
             }
         },
     },
@@ -268,7 +270,10 @@ export default {
                             })
                             .then(response => (
                                 this.dropzone.removeAllFiles()
-                        ));
+                            ))
+                            .then(response => (
+                                console.log()
+                            ));
                   
                 },
                 maxfilesexceeded: file => {
