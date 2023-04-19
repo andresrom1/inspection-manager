@@ -76,6 +76,12 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('inspections.index')" :active="request()->routeIs('inspections.index')">
+                {{ __('Inspecciones') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('inspection.create')" :active="request()->routeIs('inspection.create')">
+                {{ __('Crear Inspección') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
