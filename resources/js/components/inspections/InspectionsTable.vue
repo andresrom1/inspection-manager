@@ -223,6 +223,9 @@ export default {
 
             $(document).ready(function () {
                 let datatable = $('#inspectionsTable').DataTable({
+                    responsive: {
+                        details: true
+                    },
                     searchPanes:{
                         show: true,
                         cascadePanes: true,
@@ -230,7 +233,7 @@ export default {
                         orderable: true,
                         preSelect: [{
                             column: 6,
-                            rows: ['No procesado', 'Foto agregada', 'Aceptado', 'Rechazado']
+                            rows: ['No procesado', 'Foto agregada', 'Aceptado', 'Rechazado',]
                         }],
 
                         dtOpts: {
@@ -355,8 +358,13 @@ export default {
                     let data = datatable.row($(this).parents()).data();
                     let url = window.location.origin + '/inspection/' + data.id + '/' + data.token + '/photo'
                     
-                    navigator.clipboard.writeText(url);
-                    alert("URL para relizar la inspección: " + url);                    
+                    navigator.clipboard.writeText(url)
+                    .then(() => {
+                        alert("URL para relizar la inspección: " + url);                    
+                    })
+                    .catch(() => {
+                        alert("No se pudo copiar la URL de acceso");
+                    });
                 }) 
 
                 $('#inspectionsTable tbody').on('click', '.inspectionShow', function(){
