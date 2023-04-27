@@ -18,7 +18,7 @@ use App\Models\Inspection;
 */
 
 Route::get('/', function () {
-    return view('inspection.index');
+    return redirect(route('inspections.index'));
 });
 
 Route::get('/thankyou', function() {
