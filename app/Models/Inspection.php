@@ -12,6 +12,15 @@ class Inspection extends Model
 
     protected $guarded = [];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'selected' => 'array',
+    ];
+
     public function photo () {
         return $this->hasMany(Photo::class);
     }

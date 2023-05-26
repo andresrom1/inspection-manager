@@ -4,7 +4,6 @@ use App\Http\Controllers\InspectionController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Models\Inspection;
 
 /*
 |--------------------------------------------------------------------------

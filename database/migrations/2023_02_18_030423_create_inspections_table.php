@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('compania');
             $table->string('status')->default('no procesada');
             $table->string('token')->default(Str::random(8));
+            $table->json('selected');
             
             $table->timestamps();
         });

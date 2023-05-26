@@ -31,6 +31,9 @@ class InspectionController extends Controller
         return view ( 'inspection.edit', compact('inspection'));
     }
     public function update (Inspection $inspection) {
+        
+        $checkboxSelection = $this->checkBoxSelection();
+        
         $data = request()->validate([
             'dominio' => 'required',
             'takerEmail'=> 'required|email',
@@ -38,7 +41,9 @@ class InspectionController extends Controller
             'tipo' => 'required',
             'compania' => 'required',
         ]);
-        
+
+        $data['selection'] = $this->setOptions( $checkboxSelection );
+
         $taker = Taker::updateTaker([
             'name' => request('takerName'),
             'email' => request('takerEmail'),
@@ -48,6 +53,7 @@ class InspectionController extends Controller
             'tipo' => request('tipo'),
             'dominio' => request('dominio'),
             'compania' => request('compania'),
+            'selected' => $data['selection'],
         ]);
 
         return redirect ( route('inspections.index'));
@@ -80,6 +86,8 @@ class InspectionController extends Controller
     }
     public function store () {
 
+        $checkboxSelection = $this->checkBoxSelection(); 
+       
         $data = request()->validate([
             'dominio' => 'required',
             'takerEmail'=> 'required|email',
@@ -87,6 +95,8 @@ class InspectionController extends Controller
             'tipo' => 'required',
             'compania' => 'required',
         ]);
+
+        $data['selection'] = $this->setOptions( $checkboxSelection );
 
         $user = Auth::user();
 
@@ -101,10 +111,35 @@ class InspectionController extends Controller
             'tipo' => request('tipo'),
             'dominio' => request('dominio'),
             'compania' => request('compania'),
+            'selected' => $data['selection'],
         ]);
 
         return redirect( route('inspections.index') );
 
+    }
+
+    public function setOptions($checkboxSelection) {
+
+        foreach ($checkboxSelection as $key => $value) {
+            if (!request()->$key) {
+                $data['selection'][$key] = $value;
+            } else {
+                $data['selection'][$key] = request()->$key;
+            }
+        }
+        return $data['selection'];
+    }
+    public function checkBoxSelection () {
+        return [
+            'frontOption' => 'false',
+            'leftOption' => 'false',
+            'backOption' => 'false',
+            'rightOption' => 'false',
+            'wheelOption' => 'false',
+            'glassOption' => 'false',
+            'boardOption' => 'false',
+            'cardOption' => 'false',
+        ];
     }
 
     public function prepData () {

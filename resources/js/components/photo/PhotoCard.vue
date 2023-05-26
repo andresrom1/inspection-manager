@@ -10,6 +10,9 @@
                         <back :class="{hidden: !step.atras }" />
                         <right :class="{hidden: !step.derecho }" />
                         <wheel :class="{hidden: !step.auxilio }" />
+                        <glass :class="{hidden: !step.glass }" />
+                        <board :class="{hidden: !step.board }" />
+                        <carid :class="{hidden: !step.carid }" />
                         
                         <div role="status" :class="{hidden: !step.spinner }">
                             <svg aria-hidden="true" class="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -67,6 +70,9 @@ import left from './left.vue';
 import back from './back.vue';
 import right from './right.vue';
 import wheel from './wheel.vue';
+import glass from './glass.vue';
+import board from './board.vue';
+import carid from './carid.vue';
 import spinner from './spinner.vue';
 import Dropzone from 'dropzone';
 
@@ -77,14 +83,17 @@ export default {
         fileAdded: false,
         step: 'Frente',
         step: {
-            angulo: "Frente",
+            angulo: null,
             status: 0,
-            frente: true,
+            frente: false,
             izquierdo: false,
             atras: false,
             derecho: false,
             auxilio: false,
             spinner: false,
+            glass: false,
+            board: false,
+            carid: false,
         },
         urlToRedirect: '',
         statusChanged: false,
@@ -97,12 +106,18 @@ export default {
         right,
         wheel,
         spinner,
+        glass,
+        board,
+        carid,
     },
     props: {
         angulo: {
             type: String
         },
-        inspection: {}
+        inspection: {},
+        selected: {
+            type: Array
+        }
     },
 
 
@@ -110,10 +125,7 @@ export default {
         postHandler () {
             if (this.dropzone.getAcceptedFiles().length) {
                 this.dropzone.processQueue();
-                this.next();
-                this.changeStatus();
             } else {
-                console.log(this.dropzone.getAcceptedFiles());
                 alert ('No hay archivo');
             }
         },
@@ -129,114 +141,212 @@ export default {
             }
         },
         thankYouMessage() {
-            if (this.step.status == 5) {
+            this.spinner();
+            if (this.step.status == 8) {
                 axios
                     .get('/thankyou')
                     .then(response => (
-                        console.log(response.request.responseURL),
                         this.urlToRedirect = response.request.responseURL,
-    
-                        window.location.href = this.urlToRedirect
-                        
+                        window.location.href = this.urlToRedirect                      
                     ));            
             }
         },
 
+        showCard() {
+            if (this.step.status == 0) {
+                if (this.selected.frontOption == "true") {
+                    this.front(); 
+                } else {
+                    this.next();
+                } 
+            }
+            if (this.step.status == 1) {
+                if (this.selected.leftOption == "true") {
+                    this.left(); 
+                } else {
+                    this.next();
+                } 
+            }
+            if (this.step.status == 2) {
+                if (this.selected.backOption == "true") {
+                    this.back(); 
+                } else {
+                    this.next();
+                }
+            }
+            if (this.step.status == 3) {
+                if (this.selected.rightOption == "true") {
+                    this.right(); 
+                } else {
+                    this.next();
+                }
+            }
+            if (this.step.status == 4) {
+                if (this.selected.wheelOption == "true") {
+                    this.wheel(); 
+                } else {
+                    this.next();
+                }
+            }
+            if (this.step.status == 5) {
+                if (this.selected.glassOption == "true") {
+                    this.glass(); 
+                } else {
+                    this.next();
+                }
+            }
+            if (this.step.status == 6) {
+                if (this.selected.boardOption == "true") {
+                    this.board();
+                } else {
+                    this.next();
+                }
+            }
+            if (this.step.status == 7) {
+                if (this.selected.cardOption == "true") {
+                    this.carid();
+                } else {
+                    this.next();
+                }
+            }
+            if (this.step.status == 8) {
+                this.thankYouMessage();
+            }
+            return;
+        },
+        front() { 
+            this.step.angulo = "Frente";
+            this.step.frente = true;
+            this.step.izquierdo = false;
+            this.step.atras = false;
+            this.step.derecho = false;
+            this.step.auxilio = false;
+            this.step.glass = false;
+            this.step.board = false;
+            this.step.card = false;
+            return;
+        },
+        left() {
+            this.step.angulo = "Izquierdo";
+            this.step.frente = false;       //0
+            this.step.izquierdo = true;     //1
+            this.step.atras = false;        //2
+            this.step.derecho = false;      //3
+            this.step.auxilio = false;      //4
+            this.step.glass = false;
+            this.step.board = false;
+            this.step.carid = false;
+            return;
+        },
+        back() {
+            this.step.angulo = "Atrás";
+            this.step.frente = false;       //0
+            this.step.izquierdo = false;     //1
+            this.step.atras = true;        //2
+            this.step.derecho = false;      //3
+            this.step.auxilio = false;      //4
+            this.step.glass = false;
+            this.step.board = false;
+            this.step.carid = false;
+            return; 
+        },
+        right() {
+            this.step.angulo = "Derecho";
+            this.step.frente = false;       //0
+            this.step.izquierdo = false;     //1
+            this.step.atras = false;        //2
+            this.step.derecho = true;      //3
+            this.step.auxilio = false;      //4
+            this.step.glass = false;
+            this.step.board = false;
+            this.step.carid = false;
+            return;            
+        },
+        wheel() {
+            this.step.angulo = "Auxilio";
+            this.step.frente = false;       //0
+            this.step.izquierdo = false;     //1
+            this.step.atras = false;        //2
+            this.step.derecho = false;      //3
+            this.step.auxilio = true; 
+            this.step.glass = false;
+            this.step.board = false;
+            this.step.carid = false;
+            return;     //4
+        },
+        glass() {
+            this.step.angulo = "Parabrisa";
+            this.step.frente = false;       //0
+            this.step.izquierdo = false;     //1
+            this.step.atras = false;        //2
+            this.step.derecho = false;      //3
+            this.step.auxilio = false; 
+            this.step.glass = true;
+            this.step.board = false;
+            this.step.carid = false;
+
+        },
+        board() {
+            this.step.angulo = "Tablero";
+            this.step.frente = false;       //0
+            this.step.izquierdo = false;     //1
+            this.step.atras = false;        //2
+            this.step.derecho = false;      //3
+            this.step.auxilio = false; 
+            this.step.glass = false;
+            this.step.board = true;
+            this.step.carid = false;
+        },
+        carid() {
+            this.step.angulo = "Tarj. Verde";
+            this.step.frente = false;       //0
+            this.step.izquierdo = false;     //1
+            this.step.atras = false;        //2
+            this.step.derecho = false;      //3
+            this.step.auxilio = false; 
+            this.step.glass = false;
+            this.step.board = false;
+            this.step.carid = true;
+        },
+        spinner() {
+            this.step.spinner = true,
+            this.step.angulo = "";
+            this.step.frente = false;       //0
+            this.step.izquierdo = false;     //1
+            this.step.atras = false;        //2
+            this.step.derecho = false;      //3
+            this.step.auxilio = false;      //4
+            this.step.glass = false;
+            this.step.board = false;
+            this.step.carid = false;
+            
+        },
+
         next() {
-
             this.step.status++;
-
-            if(this.step.status == 0)
-            {
-                this.step.angulo = "Frente";
-                this.step.frente = true;
-                this.step.izquierdo = false;
-                this.step.atras = false;
-                this.step.derecho = false;
-                this.step.auxilio = false;
-                console.log(this.step)
-                return;
-                
-            } 
-            if(this.step.status == 1)
-            {
-                this.step.angulo = "Izquierdo";
-                this.step.frente = false,       //0
-                this.step.izquierdo = true,     //1
-                this.step.atras = false,        //2
-                this.step.derecho = false,      //3
-                this.step.auxilio = false,      //4
-                console.log(this.step)
-                return;
-            }
-            
-            if(this.step.status == 2)
-            {
-                this.step.angulo = "Atrás";
-                this.step.frente = false,       //0
-                this.step.izquierdo = false,     //1
-                this.step.atras = true,        //2
-                this.step.derecho = false,      //3
-                this.step.auxilio = false,      //4
-                console.log(this.step)
-                return;
-            }
-            
-            if(this.step.status == 3)
-            {
-                this.step.angulo = "Derecho";
-                this.step.frente = false,       //0
-                this.step.izquierdo = false,     //1
-                this.step.atras = false,        //2
-                this.step.derecho = true,      //3
-                this.step.auxilio = false,      //4
-                console.log(this.step)
-                return;
-            }
-            
-            if(this.step.status == 4)
-            {
-                this.step.angulo = "Auxilio";
-                this.step.frente = false,       //0
-                this.step.izquierdo = false,     //1
-                this.step.atras = false,        //2
-                this.step.derecho = false,      //3
-                this.step.auxilio = true, 
-                console.log(this.step)
-                return;     //4
-                
-            }
-            if(this.step.status == 5)
-            {
-                this.step.spinner = true,
-                this.step.angulo = "";
-                this.step.frente = false,       //0
-                this.step.izquierdo = false,     //1
-                this.step.atras = false,        //2
-                this.step.derecho = false,      //3
-                this.step.auxilio = false,      //4
-                console.log(this.step)
-                //this.thankYouMessage()        
-            }
+            this.showCard();
         },
     },
 
     mounted () {
         this.dropzone = new Dropzone(this.$refs.postImage, this.settings);
         this.dropzone.on("addedfile", file => {
-            console.log("A file has been added");
             this.fileAdded = true;
         });
         this.dropzone.on("removedfile", file => {
-            console.log("A file has been removed");
             this.fileAdded = false;
         });
+        this.showCard();
     },
 
     computed: {
         settings () {
             return {
                 paramName: 'image',
+                //resizeWidth: 800,
+                //resizeMimeType: 'image/jpeg',
+                //resizeMethod: "crop",
+                //resizeQuality: 0.8,
                 url: 'https://api.cloudinary.com/v1_1/dnxwqfevm/image/upload',
                 acceptedFiles: 'image/*',
                 clickable: '.dz-clickable',
@@ -245,7 +355,6 @@ export default {
                 capture: 'file',
                 previewsContainer: '.dropzone-previews',
                 previewTemplate: document.querySelector('#dz-template').innerHTML,
-                maxFileSize: 20,
                 parallelUploads: 1,
                 params: {
                     'inspection': this.inspection['id'],
@@ -253,6 +362,15 @@ export default {
                 headers: {
                     'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
                 },
+                // transformFile: function(file, done) {
+                //     return this.resizeImage(
+                //         file,
+                //         this.options.resizeWidth = 650,
+                //         //this.options.resizeHeight,
+                //         this.options.resizeMethod,
+                //         //done
+                //     );
+                // },
                 sending: (file, xhr, formData) => {
                     formData.append('inspection',this.inspection['id']);
                     // Cloudinary
@@ -263,16 +381,16 @@ export default {
                     
                 },
                 success: (event, res) => {
-                    console.log(res);
                     axios
                         .post('/photo/cloudinaryUpload/' + this.inspection['id'], {
                                 response: res
                             })
                             .then(response => (
-                                this.dropzone.removeAllFiles()
-                            ))
-                            .then(response => (
-                                console.log()
+                                this.dropzone.removeAllFiles(),
+                                console.log ('archivos removidos'),
+                                this.showCard(),
+                                this.next(),
+                                this.changeStatus()
                             ));
                   
                 },
