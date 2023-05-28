@@ -3,7 +3,7 @@
     <li>
         <input type="checkbox" name="frontOption" id="frontOption"            
         value="true" class="hidden peer"
-        @isset($inspection)
+        @isset($inspection->selected['frontOption'])
             @checked( old( 'frontOption', ($inspection->selected['frontOption'] == "true")? true:false ) )
         @endisset >
 
@@ -26,7 +26,7 @@
     <li>
         <input type="checkbox" name="leftOption" id="leftOption"
         value="true" class="hidden peer"
-        @isset($inspection)
+        @isset($inspection->selected['leftOption'])
             @checked( old( 'leftOption', ($inspection->selected['leftOption'] == "true")? true:false ) ) )
         @endisset >
 
@@ -49,7 +49,7 @@
     <li>
         <input type="checkbox" name="backOption" id="backOption" 
         value="true" class="hidden peer"
-        @isset($inspection)
+        @isset($inspection->selected['backOption'])
             @checked( old( 'backOption', ($inspection->selected['backOption'] == "true")? true:false  ) )
         @endisset>
         <label for="backOption" class="flex flex-col items-center justify-center p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
@@ -71,7 +71,7 @@
     <li>
         <input type="checkbox" name="rightOption" id="rightOption" 
         value="true" class="hidden peer"
-        @isset($inspection)
+        @isset($inspection->selected['rightOption'])
             @checked( old( 'rightOption', ($inspection->selected['rightOption'] == "true")? true:false ) ) )
         @endisset>
         <label for="rightOption" class="flex flex-col items-center justify-center p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
@@ -93,7 +93,7 @@
     <li>
         <input type="checkbox" name="wheelOption" id="wheelOption" 
         value="true" class="hidden peer"
-        @isset($inspection)
+        @isset($inspection->selected['wheelOption'])
             @checked( old( 'wheelOption', ($inspection->selected['wheelOption'] == "true")? true:false ) ) )
         @endisset>
         <label for="wheelOption" class="flex flex-col items-center justify-center p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
@@ -115,7 +115,7 @@
     <li>
         <input type="checkbox" name="glassOption" id="glassOption" 
         value="true" class="hidden peer"
-        @isset($inspection)
+        @isset($inspection->selected['glassOption'])
             @checked( old( 'glassOption', ($inspection->selected['glassOption'] == "true")? true:false ) ) ) 
         @endisset>
         <label for="glassOption" class="flex flex-col items-center justify-center p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
@@ -137,7 +137,7 @@
     <li>
         <input type="checkbox" name="boardOption" id="boardOption" 
         value="true" class="hidden peer"
-        @isset($inspection)
+        @isset($inspection->selected['boardOption'])
             @checked( old( 'boardOption', ($inspection->selected['boardOption'] == "true")? true:false ) ) )
         @endisset>
         <label for="boardOption" class="flex flex-col items-center justify-center p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
@@ -159,7 +159,7 @@
     <li>
         <input type="checkbox" name="cardOption" id="cardOption" 
         value="true" class="hidden peer"
-        @isset($inspection)
+        @isset($inspection->selected['cardOption'])
             @checked( old( 'cardOption', ($inspection->selected['cardOption'] == "true")? true:false ) ) )
         @endisset >
         
