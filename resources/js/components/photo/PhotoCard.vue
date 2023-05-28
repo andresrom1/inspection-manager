@@ -1,6 +1,5 @@
 <template>
     <div ref="postImage" class="flex items-center justify-center w-60 h-60">
-        <!-- <form @submit.prevent="uploadFile" enctype="multipart/form-data" method="POST" action="{{ route('photo.store') }}"> -->
             <label for="camera-front" class="dz-clickable flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
 
                     <div v-show="this.fileAdded == false" class="flex flex-col items-center justify-center pt-5 pb-6">
@@ -52,7 +51,6 @@
 
                 
                 
-                <!-- <input id="camera-front" type="file" ref="file" name="file" class="hidden dz-clickable" @change="selectFile" capture/> -->
                 <input id="inspection" name="inspection" type="text" value="{{ this.inspection['id'] }}" hidden/>
                 
                 
