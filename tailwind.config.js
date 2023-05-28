@@ -11,7 +11,9 @@ module.exports = {
     ],
     safelist: [
         'border-green-500',
-        'flex', 'flex-col', 'flex-wrap', 'flex-nowrap', 'flex-row', 'justify-items-center', 
+        'flex', 'flex-col', 'flex-wrap', 'flex-nowrap', 'flex-row', 'justify-items-center',
+        'grid', 'gap-6', 'grid-cols-1','grid-cols-2','grid-cols-3','grid-cols-4', 
+        'stroke-gray-400', 'fill-gray-700',
         'underline-offset-3', 'underline-offset-6', 'pb-2', 'pb-1.5',
         'h-48', 'w-48',"w-6", "h-6", "border-4", "border-gray-800", 
         "rounded-full", "animate-spin", "object-fill", "mt-5"
