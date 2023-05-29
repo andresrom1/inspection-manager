@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'only.mobile' => \App\Http\Middleware\AllowOnlyMobileRequestMiddleware::class,
         'check.token' => \App\Http\Middleware\CheckTokenOnUrlMiddleware::class,
         'check.mail' => \App\Http\Middleware\CheckMailOnTakerPhotoUploadMiddleware::class,
+        'check.status' => \App\Http\Middleware\CheckInspectionStatusMiddleware::class,
     ];
 }

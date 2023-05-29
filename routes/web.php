@@ -23,6 +23,9 @@ Route::get('/', function () {
 Route::get('/thankyou', function() {
     return view('photo.thankyou');
 })->name('photo.thankyou');
+Route::get('/expired', function() {
+    return view('photo.linkExpirado');
+})->name('link.expirado');
 
 Route::get('/flowbite-test', function () {
     return view('flowbite.test');
@@ -56,7 +59,7 @@ Route::get('inspections.json', [InspectionController::class, 'indexTable'])->mid
 
 //Route::get('inspection/{inspection}/{token}/photo', [PhotoController::class, 'create'])->middleware('check.token','only.mobile')->name('photo.create');
 Route::get('inspection/{inspection}/{token}/photo', [PhotoController::class, 'create'])->middleware('check.token','only.mobile')->name('photo.checkMail');
-Route::post('inspection/validated', [PhotoController::class, 'checkmail'])->middleware('check.mail')->name('photo.performCheck');
+Route::post('inspection/validated', [PhotoController::class, 'checkmail'])->middleware('check.mail', 'check.status')->name('photo.performCheck');
 Route::post('photo', [PhotoController::class, 'store'])->name('photo.store');
 Route::post('photo/cloudinaryUpload/{inspection}', [PhotoController::class, 'storeCloudinary'])->name('photo.storeCloudinary');
 Route::get('inspection/{inspection}/photo', [PhotoController::class, 'index'])->name('photo.index');
