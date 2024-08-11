@@ -73,6 +73,7 @@ import board from './board.vue';
 import carid from './carid.vue';
 import spinner from './spinner.vue';
 import Dropzone from 'dropzone';
+import Compressor from 'compressorjs';
 
 export default {
     data: () => ({
@@ -329,7 +330,17 @@ export default {
     mounted () {
         this.dropzone = new Dropzone(this.$refs.postImage, this.settings);
         this.dropzone.on("addedfile", file => {
+            
             this.fileAdded = true;
+            // this.dropzone.transformFile(file, done => {
+            //     return this.resizeImage(
+            //         file,
+            //         this.options.resizeWidth,
+            //         this.options.resizeHeight,
+            //         this.options.resizeMethod,
+            //         done()
+            //     )
+            // });
         });
         this.dropzone.on("removedfile", file => {
             this.fileAdded = false;
@@ -339,12 +350,22 @@ export default {
 
     computed: {
         settings () {
-            return {
+                return {
+                transformFile: (file, done) => {
+                    new Compressor(file, {
+                        quality: 0.8,
+                        success(result) {
+                        console.log(result);
+                        console.log('Archivo comprimido...');
+                        done(result);
+                        },
+                    });
+                },
                 paramName: 'image',
                 //resizeWidth: 800,
                 //resizeMimeType: 'image/jpeg',
-                //resizeMethod: "crop",
-                //resizeQuality: 0.8,
+                // resizeMethod: "crop",
+                // resizeQuality: 0.8,
                 url: 'https://api.cloudinary.com/v1_1/dnxwqfevm/image/upload',
                 acceptedFiles: 'image/*',
                 clickable: '.dz-clickable',
@@ -360,16 +381,9 @@ export default {
                 headers: {
                     'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
                 },
-                // transformFile: function(file, done) {
-                //     return this.resizeImage(
-                //         file,
-                //         this.options.resizeWidth = 650,
-                //         //this.options.resizeHeight,
-                //         this.options.resizeMethod,
-                //         //done
-                //     );
-                // },
                 sending: (file, xhr, formData) => {
+                    console.log('Evento Sending activado...')
+                    console.log(file);
                     formData.append('inspection',this.inspection['id']);
                     // Cloudinary
                     formData.append('upload_preset', 'tg0jdhgj');

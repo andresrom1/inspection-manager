@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\InspectionController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TakerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,4 +67,12 @@ Route::post('photo', [PhotoController::class, 'store'])->name('photo.store');
 Route::post('photo/cloudinaryUpload/{inspection}', [PhotoController::class, 'storeCloudinary'])->name('photo.storeCloudinary');
 Route::get('inspection/{inspection}/photo', [PhotoController::class, 'index'])->name('photo.index');
 
+Route::get('/takers', [TakerController::class, 'search'])->name('takers.search');
+Route::post('/takers', [TakerController::class, 'store'])->middleware('auth','tiene.permisos')->name('takers.store');
+
+Route::post('/policy', [PolicyController::class, 'store'])->middleware('auth','tiene.permisos')->name('policy.store');
+Route::get('/policy', [PolicyController::class, 'search'])->name('takers.search');
+
+
+Route::get('/notification/create', [NotificationController::class, 'create'])->middleware('auth','tiene.permisos')->name('notification.create');
 require __DIR__.'/auth.php';

@@ -87,7 +87,7 @@ class InspeccionManagementTest extends TestCase
     /** @test */
     public function al_crear_una_inspeccion_se_genera_un_token () 
     {
-        $this->withoutExceptionHandling();
+        // $this->withoutExceptionHandling();
 
         $user = User::factory()->create([
             'type' => 100,

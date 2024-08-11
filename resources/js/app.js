@@ -28,3 +28,19 @@ const inspectionTable = createApp({
 });
 inspectionTable.mount("#inspections-table");
 
+import MailSearch from './components/notification/MailSearch.vue';
+const mailSearch = createApp({
+    components: {
+        'mail-search': MailSearch,
+    },
+});
+mailSearch.mount("#mail-search");
+
+import PolicySearch from './components/notification/PolicySearch.vue';
+const policySearch = createApp({
+    components: {
+        'policy-search': PolicySearch,
+    },
+});
+policySearch.mount("#policy-search");
+

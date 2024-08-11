@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Taker;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -10,15 +11,24 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class TakerFactory extends Factory
 {
     /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Taker::class;
+
+    /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
      */
+    
     public function definition()
     {
         return [
-            'name' => 'Juan Perez',
-            'email' => 'juan@gmail.com'
+            'name' => fake()->name(),
+            'email' => fake()->unique()->safeEmail(),
+            'phone' => fake()->unique()->phoneNumber(),
         ];
     }
 }
