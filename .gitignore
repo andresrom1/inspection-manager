@@ -19,3 +19,6 @@ yarn-error.log
 /.vscode
 /resources/js/components/photo/PhotoCardCopy.env
 _ide_helper.php
+composer copy.json
+/vendor.old
+composer.lock.old
