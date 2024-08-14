@@ -24,7 +24,7 @@ class TakerController extends Controller
      */
     public function create()
     {
-        //
+        return view ('takers.create');
     }
 
     /**
@@ -35,11 +35,20 @@ class TakerController extends Controller
      */
     public function store(Request $request)
     {
+        
         $takerData = $request->validate([
             'name' => 'required',
-            'email' => 'required',
-            'phone' => 'required'
+            'email' => 'required|email|unique:takers',
+            'phone' => 'required',
+            'id_type' => '',
+            'id_number' => '',
+            'adress' => '',
+            'postal_code' => '',
         ]);
+        $procedence = $request->validate([
+            'procedence' => '',
+        ]);
+        
 
         // $policyData =$request->validate([
 
@@ -55,6 +64,13 @@ class TakerController extends Controller
         // $policy = Policy::create($policyData);
 
         // $installment = Installment::create($installemntData);
+
+
+        if ($procedence['procedence'] == "crud") {
+            return view ('takers.create');
+        }
+        
+        
     }
 
     /**

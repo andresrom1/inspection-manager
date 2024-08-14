@@ -10,7 +10,7 @@ module.exports = {
         "./node_modules/flowbite/**/*.js",
     ],
     safelist: [
-        'border-green-500',
+        'border-green-500', 'focus:ring-blue-500',
         'flex', 'flex-col', 'flex-wrap', 'flex-nowrap', 'flex-row', 'justify-items-center',
         'grid', 'gap-6', 'grid-cols-1', 'grid-cols-2', 'grid-cols-3', 'grid-cols-4', 
         'stroke-gray-400', 'fill-gray-700',"block", "mb-2", "text-sm", "font-medium", "text-gray-900", "dark:text-white",

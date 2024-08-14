@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('inspection.create')" :active="request()->routeIs('inspection.create')">
                         {{ __('Crear Inspección') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('takers.create')" :active="request()->routeIs('takers.create')">
+                        {{ __('Crear Tomador') }}
+                    </x-nav-link>
                 </div>
             </div>
 
