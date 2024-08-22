@@ -74,6 +74,10 @@ Route::get('inspection/{inspection}/photo', [PhotoController::class, 'index'])->
 /*Esta ruta hay que cambiarla*/Route::get('/takers', [TakerController::class, 'search'])->name('takers.search');
 Route::post('/takers', [TakerController::class, 'store'])->middleware('auth','tiene.permisos')->name('takers.store');
 Route::get('/takers/create', [TakerController::class, 'create'])->middleware('auth','tiene.permisos')->name('takers.create');
+Route::get('/takers', [TakerController::class, 'index'])->middleware('auth','tiene.permisos')->name('takers.index');
+Route::get('/takers/{taker}/edit', [TakerController::class, 'edit'])->middleware('auth','tiene.permisos')->name('takers.edit');
+Route::put('/takers/{taker}', [TakerController::class, 'update'])->middleware('auth','tiene.permisos')->name('takers.update');
+Route::delete('/takers/{taker}', [TakerController::class, 'destroy'])->middleware('auth','tiene.permisos')->name('takers.destroy');
 
 Route::post('/policy', [PolicyController::class, 'store'])->middleware('auth','tiene.permisos')->name('policy.store');
 Route::get('/policy', [PolicyController::class, 'search'])->name('takers.search');

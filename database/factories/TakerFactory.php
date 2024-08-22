@@ -29,6 +29,11 @@ class TakerFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->unique()->phoneNumber(),
+            'adress' => fake()->address(),
+            'id_type' => fake()->randomElement(['DNI', 'CUIL',  'CUIT']),
+            'id_number' => fake()->numberBetween(5000000,55000000),
+            'postal_code'=> fake()->postcode(),   
+            
         ];
     }
 }

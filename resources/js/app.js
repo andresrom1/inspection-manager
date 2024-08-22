@@ -44,3 +44,11 @@ const policySearch = createApp({
 });
 policySearch.mount("#policy-search");
 
+import TakersEdit from './components/takers/TakersEdit.vue';
+const takersEdit = createApp({
+    components: {
+        'takers-edit': TakersEdit,
+    },
+});
+takersEdit.mount("#takers-edit");
+

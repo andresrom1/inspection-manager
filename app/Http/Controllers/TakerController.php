@@ -12,9 +12,10 @@ class TakerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($query = null)
     {
-        //
+        $takers = Taker::orderBy("name","desc")->paginate(5);
+        return view("takers.index", compact('takers'));
     }
 
     /**
@@ -92,7 +93,9 @@ class TakerController extends Controller
      */
     public function edit(Taker $taker)
     {
-        //
+        //dd($taker);
+        // $data = Taker::findOrFail($taker->id);
+        return view ('takers.edit', compact('taker'));
     }
 
     /**
@@ -104,7 +107,20 @@ class TakerController extends Controller
      */
     public function update(Request $request, Taker $taker)
     {
-        //
+
+        $data = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:takers,email,'. $taker->id,
+            'phone' => 'required',
+            'id_type' => '',
+            'id_number' => '',
+            'adress' => '',
+            'postal_code' => '',
+        ]);
+
+        $taker->update($data);
+
+        return redirect()->route('takers.index')->with('success','Se ha actualizado el tomador');
     }
 
     /**
@@ -115,7 +131,8 @@ class TakerController extends Controller
      */
     public function destroy(Taker $taker)
     {
-        //
+        $taker->deleteOrFail();
+        return redirect()->route('takers.index')->with('success', 'El tomador ' . $taker->name . ' ha sido eliminado.');
     }
 
     public function search () {
